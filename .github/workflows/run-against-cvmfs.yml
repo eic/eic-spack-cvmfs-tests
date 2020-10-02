@@ -33,6 +33,8 @@ jobs:
         sudo mkdir -p /etc/auto.master.d
         echo "/cvmfs /etc/auto.cvmfs" | sudo tee /etc/auto.master.d/cvmfs.autofs
         sudo service autofs start  
+        # Setup spack
+        sudo ln -sf /cvmfs/eic.opensciencegrid.org/packages/setup-env.sh /etc/profile.d/spack.sh
 
     - name: Run CI scripts
       run: if [ -d ./ci.d ] ; then run-parts ./ci.d ; fi
