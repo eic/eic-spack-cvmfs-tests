@@ -33,6 +33,10 @@ jobs:
         sudo mkdir -p /etc/auto.master.d
         echo "/cvmfs /etc/auto.cvmfs" | sudo tee /etc/auto.master.d/cvmfs.autofs
         sudo service autofs start
+    - uses: actions/cache@v2
+      with:
+        path: /var/lib/cvmfs
+        key: ${{ runner.os }}-cvmfs
 
     - name: Setup spack
       env:
@@ -43,4 +47,6 @@ jobs:
         echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
 
     - name: Run CI scripts
-      run: if [ -d ./ci.d ] ; then run-parts ./ci.d ; fi
+      run: |
+        source $SPACK_ROOT/share/spack/setup-env.sh
+        if [ -d ./ci.d ] ; then run-parts ./ci.d ; fi
