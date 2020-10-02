@@ -32,9 +32,15 @@ jobs:
         echo "+dir:/etc/auto.master.d" | sudo tee /etc/auto.master
         sudo mkdir -p /etc/auto.master.d
         echo "/cvmfs /etc/auto.cvmfs" | sudo tee /etc/auto.master.d/cvmfs.autofs
-        sudo service autofs start  
+        sudo service autofs start
+
+    - name: Setup spack
+      env:
+          SPACK_ROOT: /cvmfs/eic.opensciencegrid.org/packages/spack/current
+      run: |
         # Setup spack
-        sudo ln -sf /cvmfs/eic.opensciencegrid.org/packages/setup-env.sh /etc/profile.d/spack.sh
+        echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
+        echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
 
     - name: Run CI scripts
       run: if [ -d ./ci.d ] ; then run-parts ./ci.d ; fi
