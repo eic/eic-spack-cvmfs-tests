@@ -19,10 +19,7 @@ jobs:
     - uses: eic/setup-spack@main
       with:
         environment: eic
-    - uses: actions/cache@v2
-      with:
-        path: /var/lib/cvmfs
-        key: ${{ runner.os }}-cvmfs
     - name: Run CI scripts
       run: |
+        source ${SPACK_ROOT}/share/spack/setup-env.sh
         if [ -d ./ci.d ] ; then run-parts ./ci.d ; fi
