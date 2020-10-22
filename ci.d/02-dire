@@ -1,5 +1,5 @@
 #!/bin/bash
 
-spack load --first dire
+spack load dire
 
 dire --nevents 50 --setting "WeakSingleBoson:ffbar2gmZ = on"
