@@ -1,5 +1,5 @@
 #!/bin/bash
 
-spack load --first root
+spack load root
 
 root --version
