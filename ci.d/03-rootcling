@@ -1,0 +1,5 @@
+#!/bin/bash
+
+spack load root
+
+rootcling -f 03/TEventDict.cxx 03/TEvent.h 03/TTrack.h
